@@ -7,10 +7,10 @@ class DishDetail extends Component{
         if(dish != null) {
             const dishComments = dish.comments.map((comment) => {    
                 return (
-                    <ul className = 'list-unstyled'>
+                    <div>
                         <li>{comment.comment}</li>
                         <li>-- {comment.author}, {comment.date}</li>
-                    </ul>
+                    </div>
                 );
               });              
             return(
@@ -18,7 +18,9 @@ class DishDetail extends Component{
                     <Card>
                         <CardTitle><h4>Comments</h4></CardTitle>
                         <CardBody>
-                            {dishComments}
+                            <ul className = 'list-unstyled'>
+                                {dishComments}
+                            </ul>
                         </CardBody>
                     </Card>
                 </div>
@@ -26,7 +28,7 @@ class DishDetail extends Component{
         }
         else {
             return(
-                <div></div>
+                null
             )
         }
 }
