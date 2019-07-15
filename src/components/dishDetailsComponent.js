@@ -23,8 +23,8 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: "+JSON.stringify(values));
-        alert("Current State is: "+JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.name, values.comment);
     }
 
     render() {
@@ -83,37 +83,37 @@ class CommentForm extends Component {
     }
 }
 
-function RenderComments(props) {
-    const dishComments = props.comments.map((comment) => {    
+function RenderComments({comments, addComment, dishId}) {
+    if (comments != null)
         return (
-            <div>
-                <p>{comment.comment}</p>
-                <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+            <div className = 'col-12 col-md-5 m-1'>
+                <h4>Comments</h4>
+                <ul className ='list-unstyled'>
+                    {comments.map((comment) => {
+                        return (
+                            <li key={comment.id}>
+                                <p>{comment.comment}</p>
+                                <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+                            </li>
+                        )
+                    })}
+                </ul>
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         );
-    });
-    return(
-        <Card>
-            <CardTitle><h4>Comments</h4></CardTitle>
-            <CardBody>
-                <ul className = 'list-unstyled'>
-                    {dishComments}
-                </ul>
-                <CommentForm />
-            </CardBody>
-        </Card>
-    )
 }
 
 function RenderDish({dish}) {
     return(
-        <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
-            <CardBody>
-                <CardTitle>{dish.name}</CardTitle>
-                <CardText>{dish.description}</CardText>
-            </CardBody>
-        </Card>
+        <div className = 'col-12 col-md-5 m-1'>
+            <Card>
+                <CardImg top src={dish.image} alt={dish.name} />
+                <CardBody>
+                    <CardTitle>{dish.name}</CardTitle>
+                    <CardText>{dish.description}</CardText>
+                </CardBody>
+            </Card>
+        </div>
     );
 }
 
@@ -132,12 +132,9 @@ const DishDetail = (props) => {
                 </div>                
             </div>
             <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    <RenderDish dish={props.dish} />
-                </div>
-                <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
-                </div>
+                <RenderDish dish={props.dish} />
+                <RenderComments comments={props.comments} addComment={props.addComment}
+                dishId={props.dish.id} />
             </div>
             </div>
         );
