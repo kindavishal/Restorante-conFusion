@@ -4,14 +4,15 @@ import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
 function RenderCard({item, isLoading, errMess}) {
+    
     if (isLoading) {
         return(
-            <Loading />
+                <Loading />
         );
     }
     else if (errMess) {
         return(
-            <h4>{errMess}</h4>
+                <h4>{errMess}</h4>
         );
     }
     else 
@@ -25,6 +26,7 @@ function RenderCard({item, isLoading, errMess}) {
                 </CardBody>
             </Card>
         );
+
 }
 
 function Home(props) {
