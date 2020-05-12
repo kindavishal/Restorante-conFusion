@@ -3,9 +3,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Requried Packages
 
 You need the following packages to be able to run this project locally:
-### `json-server`
+#### `json-server`
 Use `npm install json-server -g` to install the package. Then change directory to json-server (cd json-server) and run `json-server --watch db.json -p 3001 -d 2000`. This will start the server to serve JSON data at port 3001 (you may change it as you wish to).
-### `lite-server`
+#### `lite-server`
 Use `npm install lite-server --save-dev`. We shall use `lite-server` that allows us to run a Node.js based development web server and serve up your project files. After that is installed, running `npm start` will start serving the project at [http://localhost:3000](http://localhost:3000)
 
 ## Available Scripts
